@@ -1,4 +1,8 @@
 import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import * as courseActions from '../../actions/courseActions';
 
 class CourseForm extends React.Component {
   constructor(props, context) {
@@ -21,8 +25,12 @@ class CourseForm extends React.Component {
 
   onFormSubmit(event) {
     event.preventDefault();
-    this.props.onSaveCourse(this.state.course);
-    this.setState({ course: { title: '' } })
+    if(this.state.course.title === '') {
+      return;
+    }
+  
+    this.props.actions.createCourse(this.state.course);
+    this.setState({ course: { title: '' } });
   }
 
   render() {
@@ -51,7 +59,11 @@ class CourseForm extends React.Component {
 }
 
 CourseForm.propTypes = {
-  onSaveCourse: PropTypes.func.isRequired
+  actions: PropTypes.object.isRequired
 };
 
-export default CourseForm;
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(courseActions, dispatch)
+});
+
+export default connect(null, mapDispatchToProps)(CourseForm);
