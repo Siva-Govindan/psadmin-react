@@ -1,69 +1,64 @@
 import React, { PropTypes } from 'react';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import TextInput from '../common/TextInput';
+import SelectInput from '../common/SelectInput';
+import Button from '../common/Button';
 
-import * as courseActions from '../../actions/courseActions';
+const CourseForm = props => {
+  return (
+      <form>
+        <h1> Manage Course </h1>
+        <TextInput
+          name="title"
+          label="Title"
+          value={props.course.title}
+          onChange={props.onChange}
+          error={props.errors.title}
+          />
+        
+        <SelectInput
+          name="authorId"
+          label="Author"
+          value={props.course.authorId}
+          defaultOption="Select Author"
+          options={props.allAuthors}
+          onChange={props.onChange}
+          error={props.errors.authorId}
+          />
 
-class CourseForm extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+        <TextInput
+          name="category"
+          label="Category"
+          value={props.course.category}
+          onChange={props.onChange}
+          error={props.errors.category}
+          />
 
-    this.state = {
-      course: { title: '' }
-    };
-
-    // Bind functions to the 'this' context
-    this.onTitleChange = this.onTitleChange.bind(this);
-    this.onFormSubmit = this.onFormSubmit.bind(this);
-  }
-
-  onTitleChange(event) {
-    const course = this.state.course;
-    course.title = event.target.value;
-    this.setState({ course });
-  }
-
-  onFormSubmit(event) {
-    event.preventDefault();
-    if(this.state.course.title === '') {
-      return;
-    }
-  
-    this.props.actions.createCourse(this.state.course);
-    this.setState({ course: { title: '' } });
-  }
-
-  render() {
-    return (
-      <div>
-        <h2> Add Course </h2>
-        <form onSubmit={this.onFormSubmit}>
-          <input 
-            type="text"
-            className="form-control"
-            onChange={this.onTitleChange}
-            value={this.state.course.title}
-            placeholder="Add Course"
-            />
-
-          <br />
-          <input
-            type="submit"
-            className="btn btn-primary"
-            value="Save"
-            />
-        </form>
-      </div>
-    );
-  }
-}
-
-CourseForm.propTypes = {
-  actions: PropTypes.object.isRequired
+        <TextInput
+          name="length"
+          label="Length"
+          value={props.course.length}
+          onChange={props.onChange}
+          error={props.errors.length}
+          />
+        
+        <Button
+          type="submit"
+          disabled={props.loading}
+          value={props.loading ? 'Saving...' : 'Save'}
+          onClick={props.onSave}
+          />
+      </form>
+  );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  actions: bindActionCreators(courseActions, dispatch)
-});
+CourseForm.propTypes = {
+  course: PropTypes.object.isRequired,
+  allAuthors: PropTypes.array,
+  loading: PropTypes.bool,
+  errors: PropTypes.object,
+  onChange: PropTypes.func,
+  onSave: PropTypes.func
+};
 
-export default connect(null, mapDispatchToProps)(CourseForm);
+export default CourseForm;
+
