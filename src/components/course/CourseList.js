@@ -15,7 +15,7 @@ const CourseList = ({ courses }) => {
       </thead>
       <tbody>
         {courses.map( (course, index) =>
-          <CourseListRow key={index} course={course} />
+          <CourseListRow key={index} course={course} index={index} />
         )}
       </tbody>
     </table>
