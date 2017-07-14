@@ -6,3 +6,6 @@ export const UPDATE_COURSE_SUCCESS = 'UPDATE_COURSE_SUCCESS';
 // Author Actions
 export const LOAD_AUTHORS_SUCCESS = 'LOAD_AUTHORS_SUCCESS';
 
+// Ajax Status Actions
+export const BEGIN_AJAX_CALL = 'BEGIN_AJAX_CALL';
+export const END_AJAX_CALL = 'END_AJAX_CALL';

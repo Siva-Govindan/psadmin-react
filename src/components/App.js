@@ -1,22 +1,34 @@
 // Parent Component that renders other components as children
 
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
+import { connect } from 'react-redux';
 
 import Header from './common/Header';
 
-class App extends React.Component {
+class App extends Component {
+  constructor(props, context) {
+    super(props, context);
+  }
+
   render() {
+    const { loading } = this.props;
+
     return (
       <div className="container-fluid">
-          <Header />
-          {this.props.children}
+        <Header loading={loading} />
+        {this.props.children}
       </div>
     );
   }
 }
 
 App.propTypes = {
+  loading: PropTypes.bool.isRequired,
   children: PropTypes.object.isRequired
 };
 
-export default App;
+const mapStateToProps = (state, ownProps) => ({
+  loading: state.ajaxCallsInProgress > 0
+});
+
+export default connect(mapStateToProps)(App);
