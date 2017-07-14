@@ -13,7 +13,7 @@ class ManageCoursePage extends Component {
     this.state ={
       course: Object.assign({}, this.props.course),
       errors: {},
-      saving: false
+      saving: false,
     };
 
     this.onChangeCourseField = this.onChangeCourseField.bind(this);
@@ -36,6 +36,10 @@ class ManageCoursePage extends Component {
 
   onSaveClick(event) {
     event.preventDefault();
+    if(JSON.stringify(this.state.course) == JSON.stringify(this.props.course)){
+      toastr.info('No changes made');
+      return;
+    }
     this.setState({ saving: true });
     this.props.actions.saveCourse(this.state.course, this.props.index)
       .then(() => {
