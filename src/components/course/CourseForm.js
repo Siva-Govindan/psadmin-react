@@ -43,8 +43,8 @@ const CourseForm = props => {
         
         <Button
           type="submit"
-          disabled={props.loading}
-          value={props.loading ? 'Saving...' : 'Save'}
+          disabled={props.saving}
+          value={props.saving ? 'Saving...' : 'Save'}
           onClick={props.onSave}
           />
       </form>
@@ -54,7 +54,7 @@ const CourseForm = props => {
 CourseForm.propTypes = {
   course: PropTypes.object.isRequired,
   allAuthors: PropTypes.array,
-  loading: PropTypes.bool,
+  saving: PropTypes.bool,
   errors: PropTypes.object,
   onChange: PropTypes.func,
   onSave: PropTypes.func

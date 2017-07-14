@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import toastr from 'toastr';
 
 import CourseForm from './CourseForm';
 import * as courseActions from '../../actions/courseActions';
@@ -11,7 +12,8 @@ class ManageCoursePage extends Component {
 
     this.state ={
       course: Object.assign({}, this.props.course),
-      errors: {}
+      errors: {},
+      saving: false
     };
 
     this.onChangeCourseField = this.onChangeCourseField.bind(this);
@@ -21,7 +23,7 @@ class ManageCoursePage extends Component {
   // Life cycle methods
   componentWillReceiveProps(nextProps) {
     if (this.props.course.id !== nextProps.course.id) {
-      this.setState({ course: Object.assign({}, nextProps.course) })
+      this.setState({ course: Object.assign({}, nextProps.course) });
     }
   }
 
@@ -34,7 +36,16 @@ class ManageCoursePage extends Component {
 
   onSaveClick(event) {
     event.preventDefault();
-    this.props.dispatch(courseActions.saveCourse(this.state.course, this.props.index));
+    this.setState({ saving: true });
+    this.props.actions.saveCourse(this.state.course, this.props.index)
+      .then(() => {
+        this.redirect();
+      });
+  }
+
+  redirect() {
+    toastr.success('Course saved!');
+    this.setState({ saving: false });
     this.context.router.push('/courses');
   }
 
@@ -46,6 +57,7 @@ class ManageCoursePage extends Component {
         onChange={this.onChangeCourseField}
         allAuthors={this.props.authors}
         onSave={this.onSaveClick}
+        saving={this.state.saving}
           />
     );
   }
@@ -61,7 +73,7 @@ ManageCoursePage.propTypes = {
   course: PropTypes.object.isRequired,
   index: PropTypes.string,
   authors: PropTypes.array.isRequired,
-  dispatch: PropTypes.func
+  actions: PropTypes.object.isRequired
 };
 
 // Pull in react router context
@@ -92,4 +104,8 @@ const mapStateToProps = (state, ownProps) => {
   };
 };
 
-export default connect(mapStateToProps)(ManageCoursePage);
+const mapDispatchToProps = (dispatch) => ({
+  actions: bindActionCreators(courseActions, dispatch)
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ManageCoursePage);
