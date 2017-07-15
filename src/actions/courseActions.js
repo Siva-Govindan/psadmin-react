@@ -16,6 +16,10 @@ export function createCourseSuccess(course) {
   return { type: actionTypes.CREATE_COURSE_SUCCESS, course };
 }
 
+export function deleteCourse(course, index) {
+  return { type: actionTypes.DELETE_COURSE, course, index };
+}
+
 // Redux thunk actions
 export function loadCourses() {
   return function(dispatch) {

@@ -8,7 +8,7 @@ import Button from '../common/Button';
 const CourseForm = props => {
   return (
       <form>
-        {props.course.id ? <h1> Manage Course </h1> : <h1> Add Course </h1>}
+        {props.course.id ? <h1 style={{textAlign: 'center'}}> Manage Course </h1> : <h1 style={{textAlign: 'center'}}> Add Course </h1>}
       
         <TextInput
           name="title"

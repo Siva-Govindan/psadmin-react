@@ -11,6 +11,7 @@ const CourseList = ({ courses }) => {
           <td> Author </td>
           <td> Category </td>
           <td> Length </td>
+          <td> </td>
         </tr>
       </thead>
       <tbody>
@@ -20,7 +21,7 @@ const CourseList = ({ courses }) => {
       </tbody>
     </table>
   );
-};
+}
 
 CourseList.propTypes = {
   courses: PropTypes.array.isRequired

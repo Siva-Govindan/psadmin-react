@@ -53,6 +53,7 @@ class ManageCoursePage extends Component {
     }
 
     if(hasErrors) {
+      toastr.error('Fix form errrors before submiting!');
       return;
     }
 
