@@ -24,6 +24,7 @@ export function loadCourses() {
       dispatch(loadCoursesSuccess(courses));
       dispatch(endAjaxCall());
     }).catch(error => {
+      dispatch(endAjaxCall());
       throw(error);
     });
   };
@@ -37,6 +38,7 @@ export function saveCourse(course, index) {
         dispatch(createCourseSuccess(savedCourse));
         dispatch(endAjaxCall());
     }).catch(error => {
+      dispatch(endAjaxCall());
       throw(error);
     });
   };

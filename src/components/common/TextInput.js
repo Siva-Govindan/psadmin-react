@@ -8,7 +8,7 @@ const TextInput = props => {
 
   return (
     <div className={wrapperClass}>
-      <label htmlFor={props.ame}> {props.label} </label>
+      <label htmlFor={props.name}> {props.label} </label>
       <div className="field">
         <input
           name={props.name} 
@@ -18,7 +18,10 @@ const TextInput = props => {
           value={props.value}
           placeholder={props.placeholder}
           />
-        {props.error && <div className="alert alert-danger"> {props.error} </div>}
+        {props.error && <div className="alert alert-danger"> 
+          <span className="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+          <span className="sr-only">Error:</span>
+          {props.error} </div>}
       </div>
     </div>
   );

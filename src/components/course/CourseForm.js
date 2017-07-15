@@ -1,4 +1,6 @@
 import React, { PropTypes } from 'react';
+import { Link } from 'react-router';
+
 import TextInput from '../common/TextInput';
 import SelectInput from '../common/SelectInput';
 import Button from '../common/Button';
@@ -6,13 +8,22 @@ import Button from '../common/Button';
 const CourseForm = props => {
   return (
       <form>
-        <h1> Manage Course </h1>
+        {props.course.id ? <h1> Manage Course </h1> : <h1> Add Course </h1>}
+      
         <TextInput
           name="title"
           label="Title"
           value={props.course.title}
           onChange={props.onChange}
           error={props.errors.title}
+          />
+
+        <TextInput
+          name="watchHref"
+          label="Course Link"
+          value={props.course.watchHref}
+          onChange={props.onChange}
+          error={props.errors.watchHref}
           />
         
         <SelectInput
@@ -43,12 +54,19 @@ const CourseForm = props => {
         
         <Button
           type="submit"
-          disabled={props.saving}
+          disabled={props.saving ? props.saving : !props.errors}
           value={props.saving ? 'Saving...' : 'Save'}
           onClick={props.onSave}
           />
+
+          &nbsp;
+        <Link to="/courses" className="btn btn-default"> Back </Link>
       </form>
   );
+};
+
+CourseForm.contextTypes = {
+  router: PropTypes.object
 };
 
 CourseForm.propTypes = {

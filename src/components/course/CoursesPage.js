@@ -30,7 +30,7 @@ class CoursesPage extends Component {
 }
 
 CoursesPage.propTypes = {
-  courses: PropTypes.array.isRequired,
+  courses: PropTypes.array.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => ({

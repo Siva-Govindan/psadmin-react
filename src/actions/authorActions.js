@@ -16,6 +16,7 @@ export function loadAuthors() {
       dispatch(loadAuthorsSuccess(authors));
       dispatch(endAjaxCall());
     }).catch(error => {
+      dispatch(endAjaxCall());
       throw(error);
     });
   };
